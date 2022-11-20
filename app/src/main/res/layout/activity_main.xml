@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text"
+        android:text="First Page"
+        android:layout_width="229dp"
+        android:layout_height="70dp"
+        android:textSize="50dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/contactB"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/text"
+        android:layout_marginTop="50dp"
+        app:backgroundTint="@color/green"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/contact"
+        android:text="contact: false"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/contactB"
+        android:layout_marginTop="15dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/wifi"
+        android:text="wifi:"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/contact"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/charge"
+        android:text="charge:"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/wifi"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/stable"
+        android:text="stable:"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/charge"
+        android:layout_marginTop="10dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/first"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/stable"
+        android:layout_marginTop="10dp"
+        app:backgroundTint="@color/blue"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        />
+
+</RelativeLayout>
