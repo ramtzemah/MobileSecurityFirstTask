@@ -19,6 +19,8 @@ import android.net.NetworkInfo;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ChargeBroadcast.O
     private MaterialTextView wifi;
     private MaterialTextView charge;
     private MaterialTextView stable;
+    private EditText batteryLevelText;
     private SensorManager mSensorManager;
     private MovementSensors sensors;
     private SensorEventListener sensorEventListener = initSensorListener();
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements ChargeBroadcast.O
     private NetworkInfo activeNetwork;
     private ChargeBroadcast chargeBroadcast;
     private WifiBroadcast wifiBroadcast;
+    private int batteryLevel;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -64,10 +68,17 @@ public class MainActivity extends AppCompatActivity implements ChargeBroadcast.O
         first.setOnClickListener(v -> {
             //
             if(isCharge && isStable && isWIFI && isContactPermission) {
-                Intent intent = new Intent(MainActivity.this, secondActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                if(batteryLevelText.getText().toString().isEmpty()){
+                    Toast.makeText(this, "Wrong battery percent",Toast.LENGTH_LONG).show();
+                }
+                else if(batteryLevel == Integer.parseInt(batteryLevelText.getText().toString())){
+                    Intent intent = new Intent(MainActivity.this, secondActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(this, "Wrong battery percent",Toast.LENGTH_LONG).show();
+                }
             }else {
                 Toast.makeText(this, "You didn't do enough things to move on to the next level",Toast.LENGTH_LONG).show();
             }
@@ -148,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements ChargeBroadcast.O
         contactB = findViewById(R.id.contactB);
         charge = findViewById(R.id.charge);
         stable = findViewById(R.id.stable);
-
+        batteryLevelText = findViewById(R.id.batteryLevel);
         //// Movement ////
         // Get sensor manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -191,14 +202,16 @@ public class MainActivity extends AppCompatActivity implements ChargeBroadcast.O
     }
 
     @Override
-    public void onChargeReceived(boolean isCharging) {
+    public void onChargeReceived(boolean isCharging, float batteryPct) {
         isCharge = isCharging;
         if(isCharge){
             charge.setText("charge: true");
         }else{
             charge.setText("charge: false");
         }
+        batteryLevel = (int)(batteryPct);
     }
+
 
     public void onWifiReceived(boolean isConnectWifi) {
         isWIFI = isConnectWifi;
